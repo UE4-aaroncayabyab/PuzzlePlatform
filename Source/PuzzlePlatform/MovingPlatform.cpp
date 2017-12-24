@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Aaron Cayabyab 2017.
 
 #include "MovingPlatform.h"
 
@@ -25,22 +25,37 @@ void AMovingPlatform::BeginPlay()
 void AMovingPlatform::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
-	
-	if (HasAuthority())
-	{
-		FVector Location = GetActorLocation();
-		float JourneyLength = (GlobalTargetLocation - GlobalStartLocation).Size();
-		float JourneyTravelled = (Location - GlobalStartLocation).Size();
-		FVector Direction = (GlobalTargetLocation - GlobalStartLocation).GetSafeNormal();
-		Location += Speed * DeltaSeconds * Direction;
-		SetActorLocation(Location);
-		
-		if (JourneyTravelled >= JourneyLength)
+
+	if (ActiveTriggers > 0) {
+		if (HasAuthority())
 		{
-			Swap<FVector>(GlobalStartLocation, GlobalTargetLocation);
+			FVector Location = GetActorLocation();
+			float JourneyLength = (GlobalTargetLocation - GlobalStartLocation).Size();
+			float JourneyTravelled = (Location - GlobalStartLocation).Size();
+			FVector Direction = (GlobalTargetLocation - GlobalStartLocation).GetSafeNormal();
+			Location += Speed * DeltaSeconds * Direction;
+			SetActorLocation(Location);
+
+			if (JourneyTravelled >= JourneyLength)
+			{
+				Swap<FVector>(GlobalStartLocation, GlobalTargetLocation);
+			}
 		}
 	}
 	
+	
 }
 
+void AMovingPlatform::AddActiveTrigger()
+{
+	ActiveTriggers++;
+}
+
+void AMovingPlatform::RemoveActiveTrigger()
+{
+	if (ActiveTriggers > 0)
+	{
+		ActiveTriggers--;
+	}
+}
 

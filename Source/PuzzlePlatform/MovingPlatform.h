@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Aaron Cayabyab 2017.
 
 #pragma once
 
@@ -25,6 +25,9 @@ public:
 	UPROPERTY(EditAnywhere, Meta = (MakeEditWidget=true))
 		FVector TargetLocation;
 
+	void AddActiveTrigger();
+	void RemoveActiveTrigger();
+
 
 protected:
 
@@ -33,4 +36,7 @@ protected:
 private:
 	FVector GlobalTargetLocation;
 	FVector GlobalStartLocation;
+
+	UPROPERTY(EditAnywhere)
+	int ActiveTriggers = 1;
 };
