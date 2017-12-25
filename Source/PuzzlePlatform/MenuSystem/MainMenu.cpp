@@ -5,6 +5,7 @@
 #include "Components/WidgetSwitcher.h"
 #include "Components/EditableTextBox.h"
 #include "MenuWidget.h"
+#include "Kismet/KismetSystemLibrary.h"
 
 
 
@@ -18,6 +19,9 @@ bool UMainMenu::Initialize()
 
 	if (!ensure(JoinButton != nullptr)) return false;
 	JoinButton->OnClicked.AddDynamic(this, &UMainMenu::OpenJoinMenu);
+
+	if (!ensure(QuitButton != nullptr)) return false;
+	QuitButton->OnClicked.AddDynamic(this, &UMainMenu::QuitGame);
 
 	if (!ensure(CancelJoinMenuButton != nullptr)) return false;
 	CancelJoinMenuButton->OnClicked.AddDynamic(this, &UMainMenu::OpenMainMenu);
@@ -59,4 +63,13 @@ void UMainMenu::JoinServer()
 		FString IPAddress = IPAddressField->GetText().ToString();
 		MenuInterface->Join(IPAddress);
 	}	
+}
+
+void UMainMenu::QuitGame()
+{
+	UWorld* World = GetWorld();
+	if (!ensure(World))return;
+	APlayerController* PlayerController = World->GetFirstPlayerController();
+	if (!ensure(PlayerController))return;
+	UKismetSystemLibrary::QuitGame(World, PlayerController, EQuitPreference::Quit);
 }
