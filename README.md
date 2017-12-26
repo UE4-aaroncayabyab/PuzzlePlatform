@@ -7,8 +7,9 @@ Contains Steam Online Functionality by hosting/joining lobbies.
 This repo does not contain the Steam SDK Folder or the .exe to test out prototype.
 
 To test Steam online functionality, download packaged build and extract via Google Drive below:
+https://drive.google.com/file/d/18obKvAsNI2jHTREL6edKCteGCHnTJNC-/view?usp=sharing
 
-Users must be signed onto steam on separate computers to test online capabiities.
+**Users must be signed onto steam on separate computers to test online capabiities.
 
 
  By:
